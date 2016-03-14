@@ -1,0 +1,17 @@
+<script type="text/javascript">
+  setTimeout(function() {
+    $('.alert-danger').fadeOut('fast');
+  }, 4000);
+  setTimeout(function() {
+    $('.alert-info').fadeOut('fast');
+  }, 4000);
+  setTimeout(function() {
+    $('.alert-success').fadeOut('fast');
+  }, 4000);
+</script>
+
+<% flash.each do |name, msg| %>
+    <div class="alert alert-dismissable alert-<%= name %>" role="alert">
+      <%= content_tag :div, msg, class: name %>
+    </div>
+<% end %>
