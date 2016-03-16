@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   post 'dog/remove'
 
+  resources :conversations do
+    resources :messages
+  end
+
+  get 'home/sitter'
+
   root to: "home#index"
 
   devise_for :users
