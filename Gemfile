@@ -46,4 +46,9 @@ group :development do
 end
 
 gem 'devise'
+gem 'haversine'
+
+group :development do
+  gem 'faker'
+end
 

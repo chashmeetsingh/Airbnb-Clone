@@ -13,7 +13,13 @@ Rails.application.routes.draw do
 
   get 'home/sitter'
 
-  root to: "home#index"
+  get '/profile' => 'home#profile'
+
+  post '/search' => 'home#search'
+
+  post 'home/update_profile'
+
+  root to: 'home#index'
 
   devise_for :users
 end
