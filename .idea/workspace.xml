@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f9ae1c9-8cd8-4245-b481-0f30bb9a4e4b" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/home.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/home.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/home.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/home/index.html" afterPath="$PROJECT_DIR$/app/views/home/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/home/profile.html.erb" afterPath="$PROJECT_DIR$/app/views/home/profile.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/home/search.html.erb" afterPath="$PROJECT_DIR$/app/views/home/search.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/development.log" afterPath="$PROJECT_DIR$/log/development.log" />
-    </list>
+    <list default="true" id="6f9ae1c9-8cd8-4245-b481-0f30bb9a4e4b" name="Default" comment="" />
     <ignored path="airbnb.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
