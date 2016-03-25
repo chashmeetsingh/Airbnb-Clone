@@ -38,3 +38,5 @@ build/
 log/*.log
 tmp/**/*
 .idea/*.xml
+.idea/**/*
+.idea/*
