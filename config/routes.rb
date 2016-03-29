@@ -19,6 +19,16 @@ Rails.application.routes.draw do
 
   post 'home/update_profile'
 
+  get '/user/:username' => 'home#public_profile', :constraints => { :username => /[^\/]+/ }
+
+  post '/book' => 'booking#new'
+
+  post 'booking/create'
+
+  get 'booking/index'
+
+  get 'dog/sample'
+
   root to: 'home#index'
 
   devise_for :users

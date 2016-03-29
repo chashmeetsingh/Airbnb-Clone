@@ -3,7 +3,7 @@ class DogController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @dogs = Dog.all
+    @dogs = current_user.dogs
   end
 
   def add

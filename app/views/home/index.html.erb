@@ -1,0 +1,17 @@
+<div class="container" style="margin-top: 40px;">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <%= form_for :user, url: { action: 'search' }, html: { id: 'search_form' } do %>
+        <input id="autocomplete" placeholder="Enter Location.. " size="50px;">
+        <input class="input-group" placeholder="Start Date" size="20" id="start_date">
+        <input class="input-group" placeholder="End Date" size="20" id="end_date">
+        <input type="hidden" name="lng" id="lng">
+        <input type="hidden" name="lat" id="lat">
+        <button class="btn btn-success" type="button" onclick="getCoordinates();">Find a Sitter</button>
+        <% end %>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+
+

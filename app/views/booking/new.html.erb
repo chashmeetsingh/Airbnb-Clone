@@ -1,0 +1,81 @@
+Book Now
+
+<% @dogs.each do |dog| %>
+    <div class="container well">
+      <%= dog.name %>
+      <button onclick="selectDog(<%= dog.id %>)">Select</button>
+    </div>
+<% end %>
+
+<% per_day_price = User.find(@provider).per_day_price %>
+
+<input type="hidden" id="noOfDays">
+
+<div class="container">
+  <div class="col-lg-8 col-md-8">
+    <%= form_for :booking, url: { action: 'create' }, html: { id: 'bookingForm' } do %>
+        <%= text_area_tag :description, '', placeholder: 'Describe', class: 'input-group', size: '60x10' %>
+        <%= text_field_tag :dog_id, '', type: 'hidden' %>
+        <%= text_field_tag :start_date, '', value: @start_date, type: 'hidden' %>
+        <%= text_field_tag :end_date, '', value: @end_date, type: 'hidden' %>
+        <%= text_field_tag :provider_id, '', value: @provider, type: 'hidden' %>
+        <%= text_field_tag :stripeToken, '', type: 'hidden' %><br>
+        <%= text_field_tag :totalAmount, '', type: 'hidden' %>
+        <%= button_tag 'Book', class: 'btn btn-success', type: 'button', id: 'bookButton' %>
+    <% end %>
+  </div>
+  <div class="col-lg-4 col-md-4" style="border:1px solid black;">
+    <h4>Cost Per Day</h4> <p id="perDayPrice"><%= per_day_price %></p>
+    <hr>
+    <h4>No of Days:</h4> <p id="days"></p>
+    <hr>
+    <h4>Total Cost:</h4> <p id="totalCost"></p>
+  </div>
+</div>
+
+<script>
+  var handler = StripeCheckout.configure({
+    key: '<%= ENV["PUBLISHABLE_KEY"] %>',
+    image: '//avatars3.githubusercontent.com/u/8962264?v=3&s=460',
+    locale: 'auto',
+    closed: function() {
+      $("#bookButton").removeAttr('disabled');
+      $('#bookButton').html('Book');
+    },
+    token: function(token) {
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+      //alert(token.id);
+      $('#stripeToken').val(token.id);
+      $('#bookingButton').prop("disabled", true);
+      $('#totalAmount').val(parseInt($('#totalCost').text().substring(1), 10) * 100);
+      //alert(parseInt($('#totalCost').text().substring(1), 10) * 100);
+      $('#bookingForm').submit();
+    }
+  });
+
+  $('#bookButton').on('click', function(e) {
+    if ($('#dog_id').val().length == 0) {
+      alert('Select Dog');
+    }
+    else {
+      $("#bookButton").prop("disabled", true);
+      $('#bookButton').html('Processing.....');
+      var totalPrice = parseInt($('#totalCost').text().substring(1), 10) * 100;
+      console.log(totalPrice);
+      // Open Checkout with further options
+      handler.open({
+        name: 'Chashmeet Singh',
+        email: '<%= current_user.email %>',
+        amount: totalPrice
+      });
+      handler.clos
+      e.preventDefault();
+    }
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>

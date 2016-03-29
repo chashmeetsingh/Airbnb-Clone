@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322161351) do
+ActiveRecord::Schema.define(version: 20160329152253) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "cust_id"
+    t.integer  "provider_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "description"
+    t.string   "stripeToken"
+    t.integer  "stripe_customer_id"
+  end
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -48,19 +60,26 @@ ActiveRecord::Schema.define(version: 20160322161351) do
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
+  create_table "stripe_customers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "stripe_user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                             default: "", null: false
+    t.string   "encrypted_password",                default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                     default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"
@@ -68,10 +87,11 @@ ActiveRecord::Schema.define(version: 20160322161351) do
     t.string   "address"
     t.string   "city"
     t.string   "state"
-    t.integer  "phone_no"
+    t.integer  "phone_no",               limit: 10
     t.string   "profile_image"
     t.float    "lat"
     t.float    "lng"
+    t.integer  "per_day_price",                     default: 5
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

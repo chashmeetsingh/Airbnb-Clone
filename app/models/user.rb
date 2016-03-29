@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :dogs
   has_many :messages
+  has_many :bookings
 
   def full_name
     "#{first_name} #{last_name}"

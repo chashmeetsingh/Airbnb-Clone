@@ -11,19 +11,21 @@
           </div>
           <div class="col-lg-6">
             <%= f.label :last_name, 'Last Name' %>
-            <%= f.text_field :last_name, class: 'form-control' %>
+            <%= f.text_field :last_name, class: 'form-control'%>
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-6">
-            <%= f.label :location, 'Location' %>
-            <input id="autocomplete" placeholder="Enter location" type="text" class="form-control">
+            <%= f.label :addrss, 'Location' %>
+            <%= f.text_field :address, placeholder: 'Enter Location', class: 'form-control', id: 'autocomplete' %>
           </div>
           <div class="col-lg-6">
             <%= f.label :phone_no, 'Phone No.' %>
             <%= f.text_field :phone_no, placeholder: '(xxx) xxx-xxxx', class: 'form-control' %>
           </div>
         </div>
+        <%= f.label :per_day_price, 'Daily Price' %><br>
+        <%= f.number_field :per_day_price, min: '0', placeholder: 'Per Day Price ( $ )' %><br><br>
         <%= f.text_field :lat, type: 'hidden' %>
         <%= f.text_field :lng, type: 'hidden' %>
         <%= f.submit 'Update Details', class: 'btn btn-success' %>

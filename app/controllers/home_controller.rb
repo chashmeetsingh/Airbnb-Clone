@@ -14,20 +14,14 @@ class HomeController < ApplicationController
   end
 
   def update_profile
-    # @user = current_user
-    # if params[:first_name] != nil && params[:last_name] != nil
-    #   if params[:lat] != nil && params[:lng] != nil
-    #     if params[:phone_no] != nil
-    #
-    #       redirect_to '/profile', success: 'Successfully updated!'
-    #     else
-    #       @user.update_attributes(first_name: params[:first_name], last_name: params[:last_name],
-    #                                      address: params[:location], lat: params[:lat], lng: params[:lng])
-    #       redirect_to '/profile', success: 'Successfully updated!'
-    #     end
-    #   end
-    # end
-    redirect_to profile_url, error: 'Error updating'
+    begin
+      current_user.update_without_password(user_params)
+      flash[:success] = 'Successfully updated!'
+    rescue => ex
+      logger.error ex.message
+      flash[:error] = 'Error Updating'
+    end
+    redirect_to profile_url
   end
 
   def search
@@ -57,5 +51,15 @@ class HomeController < ApplicationController
     end
 
     @users = @users[0..20]
+  end
+
+  def public_profile
+    @user = User.find_by(username: params[:username])
+  end
+
+  private
+
+  def user_params
+    params[:user].permit(:first_name, :last_name, :phone_no, :address, :lat, :lng, :per_day_price)
   end
 end
