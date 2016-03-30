@@ -1,35 +1,34 @@
-<div class="container">
-  <div class="col-lg-2"></div>
-  <div class="col-lg-8">
-    <h3>Personal Information</h3>
-    <hr><br>
-    <%= form_for :user, url: { action: 'update_profile' }, html: { class: 'form-horizontal' } do |f| %>
-        <div class="form-group">
-          <div class="col-lg-6">
-            <%= f.label :first_name, 'First Name' %>
-            <%= f.text_field :first_name, class: 'form-control' %>
-          </div>
-          <div class="col-lg-6">
-            <%= f.label :last_name, 'Last Name' %>
-            <%= f.text_field :last_name, class: 'form-control'%>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-lg-6">
-            <%= f.label :addrss, 'Location' %>
-            <%= f.text_field :address, placeholder: 'Enter Location', class: 'form-control', id: 'autocomplete' %>
-          </div>
-          <div class="col-lg-6">
-            <%= f.label :phone_no, 'Phone No.' %>
-            <%= f.text_field :phone_no, placeholder: '(xxx) xxx-xxxx', class: 'form-control' %>
-          </div>
-        </div>
-        <%= f.label :per_day_price, 'Daily Price' %><br>
-        <%= f.number_field :per_day_price, min: '0', placeholder: 'Per Day Price ( $ )' %><br><br>
-        <%= f.text_field :lat, type: 'hidden' %>
-        <%= f.text_field :lng, type: 'hidden' %>
-        <%= f.submit 'Update Details', class: 'btn btn-success' %>
-    <% end %>
+<h1 class="page-header">My Profile</h1>
+
+<%= form_for :user, url: { action: 'update_profile' }, html: { class: 'form-horizontal' } do |f| %>
+  <div class="form-group">
+    <div class="col-lg-6">
+      <%= f.label :first_name, 'First Name' %>
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :last_name, 'Last Name' %>
+      <%= f.text_field :last_name, class: 'form-control'%>
+    </div>
   </div>
-  <div class="col-lg-2"></div>
-</div>
+
+  <div class="form-group">
+    <div class="col-lg-6">
+      <%= f.label :addrss, 'Location' %>
+      <%= f.text_field :address, placeholder: 'Enter Location', class: 'form-control', id: 'autocomplete' %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :phone_no, 'Phone No.' %>
+      <%= f.text_field :phone_no, placeholder: '(xxx) xxx-xxxx', class: 'form-control' %>
+    </div>
+  </div>
+
+  <%= f.label :per_day_price, 'Daily Price' %><br>
+
+  <%= f.number_field :per_day_price, min: '0', placeholder: 'Per Day Price ( $ )', class: 'form-control' %><br>
+
+  <%= f.submit 'Update Details', class: 'btn btn-success' %>
+
+  <%= f.text_field :lat, type: 'hidden' %>
+  <%= f.text_field :lng, type: 'hidden' %>
+<% end %>
