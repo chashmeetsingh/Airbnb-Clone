@@ -2,18 +2,26 @@
   <div class="alert-custom">Start Date must be before End Date</div>
 </div>
 
-<% if @user %>
-  <%= @user.username %>
-    <% user_id = @user.id %>
-    <% else %>
-    <% user_id = nil %>
-<% end %>
+<h1 class="page-header">
+  <%= @user.first_name %> <%= @user.last_name %> (<%= @user.username %>)
+</h1>
+
+<h2>Request Booking</h2>
 
 <%= form_for :booking, url: { action: 'new', controller: 'booking' }, html: { id: 'booking_form' } do |f| %>
-    <%= f.text_field :start_date, placeholder: 'Start Date', size: '20', required: true, id: 'start_date', class: 'input-group' %>
-    <%= f.text_field :end_date, placeholder: 'End Date', size: '20', required: true, id: 'end_date', class: 'input-group' %>
-    <%= f.text_field :provider_id, type: 'hidden', value: user_id %>
-    <%= f.button 'Request Booking', class: 'btn btn-info', type: 'button', onclick: 'validate();' %>
+  <div class="form-group">
+    <%= f.text_field :start_date, placeholder: 'Start Date', size: '20', required: true, id: 'start_date', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :end_date, placeholder: 'End Date', size: '20', required: true, id: 'end_date', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :provider_id, type: 'hidden', value: @user.id %>
+  </div>
+
+  <%= f.button 'Request Booking', class: 'btn btn-primary', type: 'button', onclick: 'validate();' %>
 <% end %>
 
 <h3>Per day cost</h3>
