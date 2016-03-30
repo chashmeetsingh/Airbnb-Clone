@@ -4,7 +4,7 @@
 
 <div class="list-group">
   <% @dogs.each do |dog| %>
-    <a href="#" class="select-pet list-group-item" data-pet-id="<%= dog.id %>">
+    <a href class="select-pet list-group-item" data-pet-id="<%= dog.id %>">
       <%= dog.name %>
     </a>
   <% end %>
