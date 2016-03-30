@@ -1,20 +1,31 @@
 <h1 class="page-header">Pets</h1>
 
-<% @dogs.each do |dog| %>
-  <div class="container well">
-    <%= dog.name %>
-    <%= form_for :dog, url: { action: 'remove' } do %>
-        <%= text_field_tag :dog_id, dog.id, type: 'hidden' %>
-        <%= submit_tag "Remove" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @dogs.each do |dog| %>
+    <tr>
+      <td><%= dog.name %></td>
+      <td>
+        <%= form_for :dog, url: { action: 'remove' } do %>
+          <%= text_field_tag :dog_id, dog.id, type: 'hidden' %>
+          <%= submit_tag "Remove", class: 'btn btn-default btn-xs' %>
+        <% end %>
+      </td>
+    </tr>
     <% end %>
-  </div>
-<% end %>
+  </tbody>
+</table>
 
-<br>
+<div class="well">
+  <h3>Add Pet</h3>
 
-<h2>Add Pet</h2>
-
-<%= form_for :user,url: { action: 'add'} do  %>
+  <%= form_for :user,url: { action: 'add'} do  %>
     <%= label_tag :name, "Name" %><br>
     <%= text_field_tag :name, "", autofocus:true, required: true %><br>
 
@@ -37,4 +48,5 @@
     <%= text_area_tag :description, "", :size =>"65x10", required: true %><br>
 
     <%= submit_tag "Submit", class: "btn btn-primary" %>
-<% end %>
+  <% end %>
+</div>
