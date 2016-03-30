@@ -1,0 +1,28 @@
+<%= form_for :user, url: { action: 'search' }, html: { id: 'search_form' } do %>
+  <div class="form-group">
+    <label class="sr-only" for="autocomplete">Location</label>
+    <input type="text" class="form-control" id="autocomplete" placeholder="Enter Location...">
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="sr-only" for="start_date">Start Date</label>
+        <input type="text" class="form-control" placeholder="Start Date" id="start_date">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="sr-only" for="end_date">End Date</label>
+        <input type="text" class="form-control" placeholder="End Date" id="end_date">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-success" type="button" onclick="getCoordinates()">
+    Find a Sitter
+  </button>
+
+  <input type="hidden" name="lng" id="lng">
+  <input type="hidden" name="lat" id="lat">
+<% end %>
