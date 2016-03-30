@@ -1,15 +1,14 @@
-<div class=”ui segment”>
-  <h3>All Users</h3>
-  <div class=”ui list”>
-    <% @users.each do |user| %>
-        <% if user_signed_in? %>
-            <% if user.id != current_user.id %>
-                <div class=”item”>
-                  <%= link_to user.username, '/user/' + user.username %>
-                  <%= link_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: 'btn btn-danger' %>
-                </div>
-            <% end %>
-        <% end %>
-    <% end %>
-  </div>
-</div>
+<h1 class="page-header">All Users</h1>
+
+<ul class="list-group">
+  <% @users.each do |user| %>
+      <% if user_signed_in? %>
+          <% if user.id != current_user.id %>
+              <li class="list-group-item">
+                <%= link_to user.username, '/user/' + user.username %>
+                <%= link_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post', class: 'btn btn-default btn-xs pull-right' %>
+              </li>
+          <% end %>
+      <% end %>
+  <% end %>
+</ul>

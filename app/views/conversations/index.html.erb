@@ -1,17 +1,15 @@
-<div class=”ui segment”>
- <h3>Mailbox</h3>
- <div class=”ui list”>
-  <div class=”item”>
-   <% @conversations.each do |conversation| %>
-   <% if conversation.sender_id == current_user.id ||      conversation.recipient_id == current_user.id %>
-    <% if conversation.sender_id == current_user.id %>
-      <% recipient = User.find(conversation.recipient_id) %>
-    <% else %>
-      <% recipient = User.find(conversation.sender_id) %>
+<h1 class="page-header">My Messages</h1>
+
+<ul class="list-group">
+  <% @conversations.each do |conversation| %>
+    <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+      <% if conversation.sender_id == current_user.id %>
+        <% recipient = User.find(conversation.recipient_id) %>
+      <% else %>
+        <% recipient = User.find(conversation.sender_id) %>
+      <% end %>
+
+      <%= link_to recipient.username, conversation_messages_path(conversation), class: "list-group-item" %>
     <% end %>
-    <%= link_to recipient.username,   conversation_messages_path(conversation)%>
-   <% end %>
   <% end %>
-  </div>
- </div>
-</div>
+</ul>
