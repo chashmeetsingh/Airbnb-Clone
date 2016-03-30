@@ -1,20 +1,25 @@
-Book Now
+<h1 class="page-header">Book Now</h1>
 
-<% @dogs.each do |dog| %>
-    <div class="container well">
+<h3>Select your Pet</h3>
+
+<div class="list-group">
+  <% @dogs.each do |dog| %>
+    <a href="#" class="select-pet list-group-item" data-pet-id="<%= dog.id %>">
       <%= dog.name %>
-      <button onclick="selectDog(<%= dog.id %>)">Select</button>
-    </div>
-<% end %>
+    </a>
+  <% end %>
+</div>
 
 <% per_day_price = User.find(@provider).per_day_price %>
 
 <input type="hidden" id="noOfDays">
 
-<div class="container">
+<div class="row">
   <div class="col-lg-8 col-md-8">
     <%= form_for :booking, url: { action: 'create' }, html: { id: 'bookingForm' } do %>
-        <%= text_area_tag :description, '', placeholder: 'Describe', class: 'input-group', size: '60x10' %>
+      <div class="form-group">
+        <%= text_area_tag :description, '', placeholder: 'Describe', class: 'form-control', size: '60x10' %>
+      </div>
         <%= text_field_tag :dog_id, '', type: 'hidden' %>
         <%= text_field_tag :start_date, '', value: @start_date, type: 'hidden' %>
         <%= text_field_tag :end_date, '', value: @end_date, type: 'hidden' %>
@@ -24,12 +29,24 @@ Book Now
         <%= button_tag 'Book', class: 'btn btn-success', type: 'button', id: 'bookButton' %>
     <% end %>
   </div>
-  <div class="col-lg-4 col-md-4" style="border:1px solid black;">
-    <h4>Cost Per Day</h4> <p id="perDayPrice"><%= per_day_price %></p>
-    <hr>
-    <h4>No of Days:</h4> <p id="days"></p>
-    <hr>
-    <h4>Total Cost:</h4> <p id="totalCost"></p>
+
+  <div class="col-lg-4 col-md-4">
+    <div class="list-group">
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading">Cost Per Day:</h4>
+        <p id="perDayPrice" class="list-group-item-text"><%= per_day_price %></p>
+      </div>
+
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading">No of Days:</h4>
+        <p id="days" class="list-group-item-text"><%= per_day_price %></p>
+      </div>
+
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading">Total Cost:</h4>
+        <p id="totalCost" class="list-group-item-text"><%= per_day_price %></p>
+      </div>
+    </div>
   </div>
 </div>
 
