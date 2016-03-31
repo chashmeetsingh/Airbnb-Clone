@@ -32,8 +32,8 @@ function getCoordinates(){
 
 $(function() {
     if($('#start_date')) {
-        $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-dd-mm'});
-        $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-dd-mm'});
+        $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+        $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
     }
 });
 
@@ -59,6 +59,6 @@ function validate() {
 
 function parseDate(date) {
     var parts = date.split('-');
-    return new Date(parts[0], parts[2], parts[1]);
+    return new Date(parts[0], parts[1], parts[2]);
 }
 

@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def sitter
-    @users = User.all
+    @users = User.all.limit(10)
   end
 
   def profile

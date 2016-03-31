@@ -1,4 +1,10 @@
 class BookingController < ApplicationController
+  before_action :authenticate_user!
+
+  @@price
+  @@start_date
+  @@end_date
+  @@provider
 
   def index
     @bookings = Booking.where(cust_id: current_user.id).order('created_at DESC')
@@ -10,6 +16,16 @@ class BookingController < ApplicationController
       @provider = User.find(params[:booking][:provider_id]).id
       @start_date = params[:booking][:start_date]
       @end_date = params[:booking][:end_date]
+
+      @no_of_days = (@end_date.to_date - @start_date.to_date).to_i + 1
+      @per_day_price = User.find(@provider).per_day_price
+      @total_price = @per_day_price * @no_of_days
+
+      @@price = @total_price
+      @@start_date = @start_date
+      @@end_date = @end_date
+      @@provider = @provider
+
     else
       redirect_to dog_index_path, notice: 'Please add a dog'
     end
@@ -34,29 +50,30 @@ class BookingController < ApplicationController
 
     stripe_customer = StripeCustomer.find_by(user_id: current_user.id)
 
-    # Charge the Customer instead of the card
-    Stripe::Charge.create(
-        :amount => params[:totalAmount].to_i, # in cents
-        :currency => 'usd',
-        :customer => stripe_customer.stripe_user_id
-    )
-
     @booking = Booking.create(
-                  start_date: Date.new(params[:start_date].to_i),
-                  end_date: Date.new(params[:end_date].to_i),
+                  start_date: @@start_date,
+                  end_date: @@end_date,
                   description: params[:description],
-                  provider_id: params[:provider_id],
+                  provider_id: @@provider,
                   cust_id: current_user.id,
                   stripeToken: token,
                   stripe_customer_id: stripe_customer.id
     )
 
     if @booking.save
+
+      # Charge the Customer instead of the card
+      Stripe::Charge.create(
+        :amount => @@price * 100, # in cents
+        :currency => 'usd',
+        :customer => stripe_customer.stripe_user_id
+      )
+
       flash[:success] = 'Booking Request successfully sent.'
     else
       flash[:error] = 'Error making a request'
     end
 
-    redirect_to '/user/' + User.find(params[:provider_id]).username
+    redirect_to '/user/' + User.find(@@provider).username
   end
 end

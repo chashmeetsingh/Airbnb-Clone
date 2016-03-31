@@ -10,8 +10,6 @@
   <% end %>
 </div>
 
-<% per_day_price = User.find(@provider).per_day_price %>
-
 <input type="hidden" id="noOfDays">
 
 <div class="row">
@@ -21,11 +19,7 @@
         <%= text_area_tag :description, '', placeholder: 'Describe', class: 'form-control', size: '60x10' %>
       </div>
         <%= text_field_tag :dog_id, '', type: 'hidden' %>
-        <%= text_field_tag :start_date, '', value: @start_date, type: 'hidden' %>
-        <%= text_field_tag :end_date, '', value: @end_date, type: 'hidden' %>
-        <%= text_field_tag :provider_id, '', value: @provider, type: 'hidden' %>
         <%= text_field_tag :stripeToken, '', type: 'hidden' %><br>
-        <%= text_field_tag :totalAmount, '', type: 'hidden' %>
         <%= button_tag 'Book', class: 'btn btn-success', type: 'button', id: 'bookButton' %>
     <% end %>
   </div>
@@ -34,17 +28,17 @@
     <div class="list-group">
       <div class="list-group-item">
         <h4 class="list-group-item-heading">Cost Per Day:</h4>
-        <p id="perDayPrice" class="list-group-item-text"><%= per_day_price %></p>
+        <p id="perDayPrice" class="list-group-item-text">$<%= @per_day_price %></p>
       </div>
 
       <div class="list-group-item">
         <h4 class="list-group-item-heading">No of Days:</h4>
-        <p id="days" class="list-group-item-text"><%= per_day_price %></p>
+        <p id="days" class="list-group-item-text"><%= @no_of_days %></p>
       </div>
 
       <div class="list-group-item">
         <h4 class="list-group-item-heading">Total Cost:</h4>
-        <p id="totalCost" class="list-group-item-text"><%= per_day_price %></p>
+        <p id="totalCost" class="list-group-item-text">$<%= @total_price %></p>
       </div>
     </div>
   </div>
@@ -65,7 +59,7 @@
       //alert(token.id);
       $('#stripeToken').val(token.id);
       $('#bookingButton').prop("disabled", true);
-      $('#totalAmount').val(parseInt($('#totalCost').text().substring(1), 10) * 100);
+      //$('#totalAmount').val(parseInt($('#totalCost').text().substring(1), 10) * 100);
       //alert(parseInt($('#totalCost').text().substring(1), 10) * 100);
       $('#bookingForm').submit();
     }
@@ -78,13 +72,11 @@
     else {
       $("#bookButton").prop("disabled", true);
       $('#bookButton').html('Processing.....');
-      var totalPrice = parseInt($('#totalCost').text().substring(1), 10) * 100;
-      console.log(totalPrice);
       // Open Checkout with further options
       handler.open({
         name: 'Chashmeet Singh',
         email: '<%= current_user.email %>',
-        amount: totalPrice
+        amount: <%= @total_price * 100 %>
       });
       handler.clos
       e.preventDefault();
