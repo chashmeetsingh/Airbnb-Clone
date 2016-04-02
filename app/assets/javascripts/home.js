@@ -39,9 +39,13 @@ $(function() {
 
 $(document).ready(function() {
     $('#form_errors').hide();
+    $('#form_errors1').hide();
 });
 
 function validate() {
+
+    $('#form_errors1').hide();
+    $('#form_errors').hide();
 
     var date1 = $('#start_date').val();
     var date2 = $('#end_date').val();
@@ -49,11 +53,16 @@ function validate() {
     var startDate = parseDate(date1);
     var endDate = parseDate(date2);
 
-    if ( startDate > endDate ) {
-        $('#form_errors').show("slow");
+    if(date1.length != 0) {
+        if (startDate > endDate) {
+            $('#form_errors').show("slow");
+        }
+        else {
+            $('#booking_form').submit();
+        }
     }
     else{
-        $('#booking_form').submit();
+        $('#form_errors1').show("slow");
     }
 }
 

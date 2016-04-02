@@ -30,9 +30,9 @@
   var map;
 
   var x = document.getElementById("demo");
-  var geocoder= new google.maps.Geocoder();
+  var geocoder = new google.maps.Geocoder();
 
-  $(document).ready(function(){
+  $(document).ready(function () {
     getLocation();
   });
 
@@ -58,16 +58,16 @@
     });
 
     <% @users.each do |user| %>
-    display(<%= user.lat %>, <%= user.lng %>);
+    display(<%= user.lat %>, <%= user.lng %>, '<%= user.username %>');
     <% end %>
   }
 
-  function display(lat,lng){
-    var myLatlng = new google.maps.LatLng(lat,lng);
+  function display(lat, lng, username) {
+    var myLatlng = new google.maps.LatLng(lat, lng);
 
     var marker = new google.maps.Marker({
       position: myLatlng,
-      title: "Hello World!"
+      title: username
     });
 
     // To add the marker to the map, call setMap();
