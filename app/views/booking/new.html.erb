@@ -1,81 +1,41 @@
 <h1 class="page-header">Book Now</h1>
 
-<script>
-  $(document).ready(function() {
-    $('#dogForm').submit(function(){
-      e.preventDefault();
-    });
-  });
-    function add(){
-      if ($('#name').val()) {
-        if($('#description').val()) {
-          $.post('/dog/api',
-              {
-                name: $('#name').val(),
-                year: $('#year').val(),
-                month: $('#month').val(),
-                gender: $('#gender').val(),
-                breed: $('#breed').val(),
-                size: $('#size').val(),
-                description: $('#description').val()
-              },
-              function (data, status, xhr) {
-                if(xhr.status == 200){
-                  var content = "<a href='#/' class='select-pet list-group-item' data-pet-id='" + data["dog_id"] + "'>" + data["dog_name"] + "</a>";
-                  console.log(content);
-                  $('#dogs').append(content);
-                  alert('added');
-                }
-                console.log(xhr.status);
-              }
-          )
-        }
-        else{
-          alert('provide description');
-        }
-      }
-      else{
-        alert('name empty');
-      }
-    }
-</script>
-
 <div class="well">
   <h3>Add Pet</h3>
 
   <%= form_for :dog, html: { id: 'dogForm' } do  %>
-      <%= label_tag :name, "Name" %><br>
-      <%= text_field_tag :name, "", autofocus:true, required: true %><br>
+    <%= label_tag :name, "Name" %><br>
+    <%= text_field_tag :name, "", autofocus:true, required: true %><br>
 
-      <%= label_tag :year, "Year(s)" %><br>
-      <%= number_field_tag :year, "1",  min: '0', max: '20', step: '1'  %><br>
+    <%= label_tag :year, "Year(s)" %><br>
+    <%= number_field_tag :year, "1",  min: '0', max: '20', step: '1'  %><br>
 
-      <%= label_tag :months, "Month(s)" %><br>
-      <%= number_field_tag :months, "1",  min: '1', max: '12', step: '1'  %><br>
+    <%= label_tag :months, "Month(s)" %><br>
+    <%= number_field_tag :months, "1",  min: '1', max: '12', step: '1'  %><br>
 
-      <%= label_tag :gender, "Gender" %><br>
-      <%= select_tag :gender, options_for_select([ 'Male', 'Female' ], 'Gender') %><br><br>
+    <%= label_tag :gender, "Gender" %><br>
+    <%= select_tag :gender, options_for_select([ 'Male', 'Female' ], 'Gender') %><br><br>
 
-      <%= label_tag :breed %><br>
-      <%= select_tag :breed, options_for_select([ 'Affenpinscher', 'Afghan Hound', 'Airedale Terrier', 'Akita' ], 'Affenpinscher') %><br><br>
+    <%= label_tag :breed %><br>
+    <%= select_tag :breed, options_for_select([ 'Affenpinscher', 'Afghan Hound', 'Airedale Terrier', 'Akita' ], 'Affenpinscher') %><br><br>
 
-      <%= label_tag :size %><br>
-      <%= select_tag :size, options_for_select([ 'Toy (< 10 pounds)', 'Small (10-20 pounds)', 'Medium (20-40 pounds)', 'Large (40-80 pounds)', 'Extra Large (80+ pounds)' ]) %><br><br>
+    <%= label_tag :size %><br>
+    <%= select_tag :size, options_for_select([ 'Toy (< 10 pounds)', 'Small (10-20 pounds)', 'Medium (20-40 pounds)', 'Large (40-80 pounds)', 'Extra Large (80+ pounds)' ]) %><br><br>
 
-      <%= label_tag :description %><br>
-      <%= text_area_tag :description, "", :size =>"45x5", required: true %><br>
+    <%= label_tag :description %><br>
+    <%= text_area_tag :description, "", :size => "45x5", required: true %><br>
 
-      <%= submit_tag "Add Dog", type: 'button', class: "btn btn-primary", onclick: 'add();' %>
+    <%= submit_tag "Add Dog", class: "btn btn-primary" %>
   <% end %>
 </div>
 
 <h3>Select your Pet</h3>
 
-<div class="list-group" id="dogs">
-  <% @dogs.each do |dog| %>
-      <a href class="select-pet list-group-item" data-pet-id="<%= dog.id %>">
-        <%= dog.name %>
-      </a>
+<div class="list-group" id="pet-list">
+  <% @dogs.each do |pet| %>
+    <a href class="list-group-item" data-pet-id="<%= pet.id %>">
+      <%= pet.name %>
+    </a>
   <% end %>
 </div>
 
