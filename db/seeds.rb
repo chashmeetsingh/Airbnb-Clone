@@ -6,7 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-5000.times do
+puts '--------------------Seeding----------------------'
+100.times do
   User.create(
     email: Faker::Internet.email,
     password: Faker::Internet.password(8),
@@ -19,6 +20,8 @@
     lng: Faker::Address.longitude,
     city: Faker::Address.city,
     state: Faker::Address.state,
-    phone_no: Faker::PhoneNumber.cell_phone
+    phone_no: Faker::PhoneNumber.cell_phone,
+    role: rand(0..1)
   )
 end
+puts '---------------Seeding Complete------------------'

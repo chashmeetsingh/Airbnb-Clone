@@ -30,13 +30,6 @@ function getCoordinates(){
     $('#search_form').submit();
 }
 
-$(function() {
-    if($('#start_date')) {
-        $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-        $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-    }
-});
-
 $(document).ready(function() {
     $('#form_errors').hide();
     $('#form_errors1').hide();

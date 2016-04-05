@@ -9,9 +9,9 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <% if user.first_name.empty? %>
-                    <%= user.username %>
+                    <a href="/user/<%= user.username %>"><%= user.username %></a>
                 <% else %>
-                    <%= user.full_name %>
+                    <a href="/user/<%= user.username %>"><%= user.full_name %></a>
                 <% end %>
               </div>
             </div>
@@ -73,4 +73,12 @@
     // To add the marker to the map, call setMap();
     marker.setMap(map);
   }
+
+  $(function() {
+    if($('#start_date').length) {
+      $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+      $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+    }
+  });
+
 </script>
