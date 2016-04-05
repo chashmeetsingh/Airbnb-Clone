@@ -1,13 +1,13 @@
 class HomeController < ApplicationController
   add_flash_types :error, :success
-  before_action :authenticate_user!, only: [ :profile ]
+  before_action :authenticate_user!, only: [ :profile, :sitter ]
   require 'haversine'
 
   def index
   end
 
   def sitter
-    @users = User.all.limit(10)
+    @users = User.where(role: 0).limit(10)
   end
 
   def profile

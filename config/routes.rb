@@ -31,5 +31,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  post 'dog/api'
+
   devise_for :users
 end

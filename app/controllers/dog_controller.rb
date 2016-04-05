@@ -22,6 +22,21 @@ class DogController < ApplicationController
     end
   end
 
+  def api
+    if create_dog(params)
+      dog = current_user.dogs.last
+      render json: {
+        message: 'created',
+        dog_name: dog.name,
+        dog_id: dog.id
+      }, status: 200
+    else
+      render json: {
+        message: 'error creating'
+      }, status: 400
+    end
+  end
+
   private
 
   def create_dog(params)
