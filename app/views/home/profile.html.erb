@@ -4,11 +4,11 @@
   <div class="form-group">
     <div class="col-lg-6">
       <%= f.label :first_name, 'First Name' %>
-      <%= f.text_field :first_name, class: 'form-control' %>
+      <%= f.text_field :first_name, class: 'form-control', value: current_user.first_name %>
     </div>
     <div class="col-lg-6">
       <%= f.label :last_name, 'Last Name' %>
-      <%= f.text_field :last_name, class: 'form-control'%>
+      <%= f.text_field :last_name, class: 'form-control', value: current_user.last_name%>
     </div>
   </div>
 
@@ -19,13 +19,13 @@
     </div>
     <div class="col-lg-6">
       <%= f.label :phone_no, 'Phone No.' %>
-      <%= f.text_field :phone_no, placeholder: '(xxx) xxx-xxxx', class: 'form-control' %>
+      <%= f.text_field :phone_no, placeholder: '(xxx) xxx-xxxx', class: 'form-control', value: current_user.phone_no %>
     </div>
   </div>
 
   <%= f.label :per_day_price, 'Daily Price' %><br>
 
-  <%= f.number_field :per_day_price, min: '0', placeholder: 'Per Day Price ( $ )', class: 'form-control' %><br>
+  <%= f.number_field :per_day_price, min: '0', placeholder: 'Per Day Price ( $ )', class: 'form-control', value: current_user.per_day_price %><br>
 
   <%= f.submit 'Update Details', class: 'btn btn-success' %>
 

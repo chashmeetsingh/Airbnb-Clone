@@ -33,5 +33,9 @@ Rails.application.routes.draw do
 
   post 'dog/api'
 
+  post 'booking/accept'
+
+  get 'booking/sitter'
+
   devise_for :users
 end

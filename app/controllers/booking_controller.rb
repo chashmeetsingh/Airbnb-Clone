@@ -10,6 +10,10 @@ class BookingController < ApplicationController
     @bookings = Booking.where(cust_id: current_user.id).order('created_at DESC')
   end
 
+  def sitter
+    @bookings = Booking.where(provider_id: current_user.id).order('created_at DESC')
+  end
+
   def new
     @dogs = current_user.dogs
     if @dogs
@@ -40,40 +44,51 @@ class BookingController < ApplicationController
     if stripe_customer.nil?
       # Create a Customer
       customer = Stripe::Customer.create(
-          :source => token,
-          :description => "Airbnb Clone [#{current_user.id}] [#{current_user.username}]",
-          :email => current_user.email
+        :source => token,
+        :description => "Airbnb Clone [#{current_user.id}] [#{current_user.username}]",
+        :email => current_user.email
       )
 
-      StripeCustomer.create(user_id: current_user.id, stripe_user_id: customer.id)
+      puts customer.id
+
+      StripeCustomer.create(user_id: current_user.id, stripe_customer_id: customer.id)
     end
 
     stripe_customer = StripeCustomer.find_by(user_id: current_user.id)
 
+    puts stripe_customer.stripe_customer_id
+
     @booking = Booking.create(
-                  start_date: @@start_date,
-                  end_date: @@end_date,
-                  description: params[:description],
-                  provider_id: @@provider,
-                  cust_id: current_user.id,
-                  stripeToken: token,
-                  stripe_customer_id: stripe_customer.id
+      start_date: @@start_date,
+      end_date: @@end_date,
+      description: params[:description],
+      provider_id: @@provider,
+      cust_id: current_user.id,
+      stripeToken: token,
+      stripe_customer_id: stripe_customer.stripe_customer_id,
+      price: @@price * 100
     )
 
     if @booking.save
-
-      # Charge the Customer instead of the card
-      Stripe::Charge.create(
-        :amount => @@price * 100, # in cents
-        :currency => 'usd',
-        :customer => stripe_customer.stripe_user_id
-      )
-
       flash[:success] = 'Booking Request successfully sent.'
     else
       flash[:error] = 'Error making a request'
     end
 
     redirect_to '/user/' + User.find(@@provider).username
+  end
+
+  def accept
+    booking = Booking.find(params[:booking_id])
+
+    Stripe::Charge.create(
+                    amount: booking.price,
+                    currency: 'usd',
+                    customer: booking.stripe_customer_id
+    )
+    booking.update_attributes(paid: true, accept: true)
+
+    flash[:success] = 'Booking Accepted'
+    redirect_to booking_sitter_url
   end
 end

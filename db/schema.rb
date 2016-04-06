@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404160610) do
+ActiveRecord::Schema.define(version: 20160406124431) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "cust_id"
     t.integer  "provider_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "description"
     t.string   "stripeToken"
-    t.integer  "stripe_customer_id"
+    t.string   "stripe_customer_id"
+    t.integer  "price"
+    t.boolean  "paid",               default: false
+    t.boolean  "accept",             default: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -62,9 +65,9 @@ ActiveRecord::Schema.define(version: 20160404160610) do
 
   create_table "stripe_customers", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "stripe_user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "stripe_customer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "users", force: :cascade do |t|

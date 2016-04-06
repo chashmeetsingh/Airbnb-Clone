@@ -55,7 +55,7 @@ class HomeController < ApplicationController
 
   def public_profile
     @user = User.find_by(username: params[:username])
-    @bookings = Booking.where(provider_id: @user.id)
+    @bookings = Booking.where(provider_id: @user.id, paid: true)
   end
 
   private
