@@ -28,6 +28,8 @@ gem 'devise'
 gem 'haversine'
 gem 'stripe'
 
+gem 'administrate', '~> 0.1.5'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

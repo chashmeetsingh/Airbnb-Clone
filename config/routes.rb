@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :users
+    resources :bookings
+    resources :conversations
+    resources :dogs
+    resources :messages
+    resources :stripe_customers
+
+    root to: "users#index"
+  end
+
   get 'home/index'
 
   get 'dog/index'
