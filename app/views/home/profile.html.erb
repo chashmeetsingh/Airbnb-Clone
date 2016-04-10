@@ -14,8 +14,8 @@
 
   <div class="form-group">
     <div class="col-lg-6">
-      <%= f.label :addrss, 'Location' %>
-      <%= f.text_field :address, placeholder: 'Enter Location', class: 'form-control', id: 'autocomplete' %>
+      <%= f.label :address, 'Location' %>
+      <%= f.text_field :address, placeholder: current_user.address, class: 'form-control', id: 'autocomplete' %>
     </div>
     <div class="col-lg-6">
       <%= f.label :phone_no, 'Phone No.' %>
