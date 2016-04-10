@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
 
   has_many :dogs
   has_many :messages
-  has_many :bookings
+  # has_many :bookings, foreign_key: 'cust_id'
+  has_many :my_bookings,        class_name: 'Booking', foreign_key: 'cust_id'
+  has_many :requested_bookings, class_name: 'Booking', foreign_key: 'provider_id'
 
   enum role: [:sitter, :customer]
   after_initialize :set_default_role, :if => :new_record?
@@ -18,4 +20,9 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  # This could replace has_many :bookings
+  # def bookings
+  #  Booking.where("cust_id = ? OR provider_id = ?", self.id, self.id)
+  # end
 end
