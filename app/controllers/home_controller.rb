@@ -51,6 +51,7 @@ class HomeController < ApplicationController
     @lat = params[:lat].to_f
     @start_date = params[:start_date]
     @end_date = params[:end_date]
+    @location_query = params[:autocomplete]
 
     query = [ @lat, @lng ]
 
