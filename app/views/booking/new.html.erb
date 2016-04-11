@@ -64,8 +64,13 @@
       </div>
 
       <div class="list-group-item">
+        <h4 class="list-group-item-heading">Website Commission</h4>
+        <p id="websiteCommission" class="list-group-item-text"><%= 10 %>%</p>
+      </div>
+
+      <div class="list-group-item">
         <h4 class="list-group-item-heading">Total Cost:</h4>
-        <p id="totalCost" class="list-group-item-text">$<%= @total_price %></p>
+        <p id="totalCost" class="list-group-item-text">$<%= (@total_price * 1.1).round(2) %></p>
       </div>
     </div>
   </div>
@@ -103,7 +108,7 @@
       handler.open({
         name: 'Chashmeet Singh',
         email: '<%= current_user.email %>',
-        amount: <%= @total_price * 100 %>
+        amount: <%= @total_price * 100 * 1.1 %>
       });
       handler.clos
       e.preventDefault();
