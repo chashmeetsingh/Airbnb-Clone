@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  validates_presence_of :username
+  validates_uniqueness_of :username
+
   # This could replace has_many :bookings
   # def bookings
   #  Booking.where("cust_id = ? OR provider_id = ?", self.id, self.id)

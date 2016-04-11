@@ -78,3 +78,7 @@ function parseDate(date) {
   var parts = date.split('-');
   return new Date(parts[0], parts[1], parts[2]);
 }
+
+jQuery(function($){
+    $("#user_phone_no").mask("(999) 999-9999");
+});
