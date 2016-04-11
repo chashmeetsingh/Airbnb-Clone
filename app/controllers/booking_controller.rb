@@ -45,7 +45,7 @@ class BookingController < ApplicationController
       # Create a Customer
       customer = Stripe::Customer.create(
         :source => token,
-        :description => "Airbnb Clone [#{current_user.id}] [#{current_user.username}]",
+        :description => "PetsHosts [#{current_user.id}] [#{current_user.username}]",
         :email => current_user.email
       )
 
