@@ -8,11 +8,7 @@
         <% @users.each do |user| %>
             <div class="panel panel-default">
               <div class="panel-body">
-                <% if user.first_name.empty? %>
-                    <a href="/user/<%= user.username %>"><%= user.username %></a>
-                <% else %>
-                    <a href="/user/<%= user.username %>"><%= user.full_name %></a>
-                <% end %>
+                <a href="/user/<%= user.username %>"><%= user.first_name.empty? ? user.username : user.full_name %></a>
               </div>
             </div>
         <% end %>

@@ -48,6 +48,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :username,
+    :email,
     :first_name,
     :last_name,
     :dogs,
