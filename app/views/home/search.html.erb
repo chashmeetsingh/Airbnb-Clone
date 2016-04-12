@@ -7,6 +7,14 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <a href="/user/<%= user.username %>"><%= user.first_name.empty? ? user.username : user.full_name %></a>
+                <% if Favourite.find_by(cust_id: current_user.id, provider_id: user.id) %>
+                    <% attr = 'danger' %>
+                    <% val = 'Unfavourite' %>
+                <% else %>
+                    <% attr = 'primary' %>
+                    <% val = 'Favourite' %>
+                <% end %>
+                <button class="btn btn-<%=attr%>" id="favourite" onclick="favourite(<%= user.id %>)"><%=val%></button>
               </div>
             </div>
         <% end %>
@@ -74,5 +82,4 @@
       $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
     }
   });
-
 </script>

@@ -31,6 +31,7 @@
                 <li><%= link_to "Account", edit_user_registration_path %></li>
                 <li><%= link_to "My Profile", profile_path %></li>
                 <li><%= link_to "My Messages", conversations_path %></li>
+                <li><%= link_to 'Favorite Sitters', favourites_path %></li>
                 <% if current_user.sitter? %>
                     <li><%= link_to 'Booking Requests', booking_sitter_url %></li>
                 <% end %>

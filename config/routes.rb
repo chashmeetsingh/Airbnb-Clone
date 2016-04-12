@@ -48,5 +48,9 @@ Rails.application.routes.draw do
 
   get 'booking/sitter'
 
+  post 'api/favourite'
+
+  get '/favourites' => 'api#all'
+
   devise_for :users
 end
