@@ -31,14 +31,16 @@
 <h3>Per day cost</h3>
 $ <%= @user.per_day_price %><br>
 
-<% if Favourite.find_by(cust_id: current_user.id, provider_id: @user.id) %>
-    <% attr = 'danger' %>
-    <% val = 'Unfavourite' %>
-<% else %>
-    <% attr = 'primary' %>
-    <% val = 'Favourite' %>
+<% if user_signed_in? %>
+    <% if Favourite.find_by(cust_id: current_user.id, provider_id: @user.id) %>
+        <% attr = 'danger' %>
+        <% val = 'Unfavourite' %>
+    <% else %>
+        <% attr = 'primary' %>
+        <% val = 'Favourite' %>
+    <% end %>
+    <button class="btn btn-<%=attr%>" id="favourite" onclick="favourite(<%= @user.id %>)"><%=val%></button>
 <% end %>
-<button class="btn btn-<%=attr%>" id="favourite" onclick="favourite(<%= @user.id %>)"><%=val%></button>
 
 <script>
 

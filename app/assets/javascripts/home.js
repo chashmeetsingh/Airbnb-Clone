@@ -102,3 +102,10 @@ function favourite(userId) {
         }
     )
 }
+
+$(function() {
+    if($('#start_date').length) {
+        $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+        $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+    }
+});

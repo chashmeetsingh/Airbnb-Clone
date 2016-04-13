@@ -52,5 +52,7 @@ Rails.application.routes.draw do
 
   get '/favourites' => 'api#all'
 
+  post '/api/search' => 'home#search_api'
+
   devise_for :users
 end
