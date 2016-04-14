@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-8">
+    <div class="well">
+      <h4>Start Date:</h4> <%= @booking.start_date.strftime('%B %d, %Y') %>
+      <h4>End Date:</h4> <%= @booking.end_date.strftime('%B %d, %Y') %>
+      <h4>Customer:</h4> <%= User.find(@booking.cust_id).username %>
+      <h4>Sitter:</h4> <%= User.find(@booking.provider_id).username %>
+      <h4>Status: </h4> <%= @booking.accept ? 'Accepted' : 'Pending' %>
+    </div>
+  </div>
+  <div class="col-lg-2"></div>
+</div>
+
+<% if @booking.cust_id == current_user.id %>
+    <% if @booking.complete %>
+        <h3 class="alert success">Order Complete</h3>
+        <h5>Rate and Comment (<%= User.find(@booking.provider_id).username %>)</h5>
+        <%= form_for :rating, url: { controller: 'rating', action: 'sitter' } do %>
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+              <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+              <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+              <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+              <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+              <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+              <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+              <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+              <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+              <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+            </fieldset>
+            <% if @rating %>
+                <%= text_area_tag :comment, '', class: 'form-control', rows: '7', placeholder: @rating.comment, disabled: true %><br>
+            <% else %>
+                <%= text_area_tag :comment, '', class: 'form-control', rows: '7', placeholder: 'Give reviews', required: true %><br>
+            <% end %>
+
+            <%= text_field_tag :booking_id, '', value: @booking.id, type: 'hidden' %>
+            <% if !@rating %>
+                <%= submit_tag 'Comment', class: 'btn btn-primary' %>
+            <% end %>
+        <% end %>
+    <% else %>
+        <a href="/complete/<%= @booking.id %>" class="btn btn-success">Complete Order</a>
+    <% end %>
+<% else %>
+    <button class="btn btn-success">Accept</button>
+    <button class="btn btn-danger">Reject</button>
+<% end %>
+
+<script>
+  <% if @rating %>
+  $(document).ready(function(){
+    $(":radio[value='<%= @rating.rating %>']").prop("checked", true).attr('disabled',true);
+    $("input:radio").attr('disabled',true);
+  });
+  <% end %>
+</script>

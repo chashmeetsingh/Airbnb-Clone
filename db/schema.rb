@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411212822) do
+ActiveRecord::Schema.define(version: 20160414173737) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "cust_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160411212822) do
     t.integer  "price"
     t.boolean  "paid",               default: false
     t.boolean  "accept",             default: false
+    t.boolean  "complete",           default: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -69,6 +70,16 @@ ActiveRecord::Schema.define(version: 20160411212822) do
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+
+  create_table "rating_sitters", force: :cascade do |t|
+    t.string   "comment"
+    t.integer  "provider_id"
+    t.integer  "cust_id"
+    t.string   "rating"
+    t.integer  "booking_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "stripe_customers", force: :cascade do |t|
     t.integer  "user_id"

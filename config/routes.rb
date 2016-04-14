@@ -54,5 +54,11 @@ Rails.application.routes.draw do
 
   post '/api/search' => 'home#search_api'
 
+  get '/booking/:booking_id' => 'booking#show'
+
+  get '/complete/:booking_id' => 'booking#complete'
+
+  post 'rating/sitter'
+
   devise_for :users
 end

@@ -99,7 +99,7 @@
   }
 
   function onDragMapChange() {
-    map.addListener('drag', function() {
+    map.addListener('center_changed', function() {
       //console.log(map.getCenter().lat());
       //console.log(map.getCenter().lng());
       coordinates = {
@@ -126,10 +126,11 @@
               for (var i = 0; i < responseLen; i++) {
                 //console.log(data['users'][i.toString()]['first_name']);
                 var username = data['users'][i.toString()]['username'];
-                if (data['users'][i.toString()]['first_name'] != null) {
-                  var name = data['users'][i.toString()]['first_name'] + " " + data['users'][i.toString()]['last_name'];
+                var name;
+                if (data['users'][i.toString()]['first_name'] != "") {
+                  name = data['users'][i.toString()]['first_name'] + " " + data['users'][i.toString()]['last_name'];
                 } else {
-                  var name = username;
+                  name = username;
                 }
                 $('#sitters').append("<div class='panel panel-default'> <div class='panel-body' id='details'> <a href='/user/" + username + "'>" + name + "</a></div></div>");
                 var marker = new google.maps.Marker({
@@ -139,12 +140,12 @@
 
                 // To add the marker to the map, call setMap();
                 markers.push(marker);
-                AddMarkers();
               }
             }
             else{
               $('#sitters').append('<h3>NO sitters found!!</h3>');
             }
+            AddMarkers();
           }
       )
     });

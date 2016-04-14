@@ -91,4 +91,21 @@ class BookingController < ApplicationController
     flash[:success] = 'Booking Accepted'
     redirect_to booking_sitter_url
   end
+
+  def show
+    @booking = Booking.find(params[:booking_id])
+    @rating = RatingSitter.find_by(booking_id: @booking.id)
+    if @booking.cust_id == current_user.id
+      render :show
+    end
+  end
+
+  def complete
+    @booking = Booking.find(params[:booking_id])
+    if @booking.cust_id == current_user.id
+      @booking.update_attributes(complete: true)
+      @booking.save
+      redirect_to '/booking/' + params[:booking_id].to_s
+    end
+  end
 end
