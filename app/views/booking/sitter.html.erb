@@ -3,19 +3,13 @@
     <div class="well">
       <div class="row">
         <div class="col-lg-8">
+          <a href="/booking/<%= book.id %>"><h4>Booking ID: <%= book.id %></h4></a>
           <h4>Description:</h4> <%= book.description %><br>
           <h4>Customer Username:</h4> <%= User.find(book.cust_id).username %>
         </div>
         <div class="col-lg-4">
           <p style="text-align: right"><%= distance_of_time_in_words_to_now(book.created_at) %></p>
-          <%= form_for :booking, url: { action: 'accept' } do %>
-              <%= text_field_tag :booking_id, '', type: 'hidden', value: book.id %>
-              <% if book.paid? %>
-                  <%= submit_tag 'Accepted', class: 'btn btn-success', disabled: 'disabled', style: 'align: right;' %>
-              <% else %>
-                  <%= submit_tag 'Accept Request', class: 'btn btn-danger', style: 'align: right;' %>
-              <% end %>
-          <% end %>
+
         </div>
       </div>
     </div>

@@ -79,6 +79,7 @@ class BookingController < ApplicationController
   end
 
   def accept
+    Stripe.api_key = ENV['API_KEY']
     booking = Booking.find(params[:booking_id])
 
     Stripe::Charge.create(
@@ -89,7 +90,7 @@ class BookingController < ApplicationController
     booking.update_attributes(paid: true, accept: true)
 
     flash[:success] = 'Booking Accepted'
-    redirect_to booking_sitter_url
+    redirect_to '/booking/' + params[:booking_id].to_s
   end
 
   def show
