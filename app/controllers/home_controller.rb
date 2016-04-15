@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   add_flash_types :error, :success
-  before_action :authenticate_user!, only: [ :profile, :sitter ]
+  before_action :authenticate_user!, only: [:profile, :sitter]
   require 'haversine'
 
   def index
@@ -27,12 +27,16 @@ class HomeController < ApplicationController
   end
 
   def update_user_with_address
-    begin
-      current_user.update_without_password(user_params_with_address)
+    if !params[:user][:lat].blank? && !params[:user][:lng].blank?
+      begin
+        current_user.update_without_password(user_params_with_address)
+        flash[:success] = 'Successfully updated!'
+      rescue => ex
+        logger.error ex.message
+        flash[:error] = 'Error Updating'
+      end
+    else
       flash[:success] = 'Successfully updated!'
-    rescue => ex
-      logger.error ex.message
-      flash[:error] = 'Error Updating'
     end
   end
 
@@ -53,7 +57,7 @@ class HomeController < ApplicationController
     @end_date = params[:end_date]
     @location_query = params[:autocomplete]
 
-    query = [ @lat, @lng ]
+    query = [@lat, @lng]
 
     @users = Array.new
     # @users = User.all
@@ -79,7 +83,7 @@ class HomeController < ApplicationController
 
       if boolBook == true
         unless user.lat.nil? && user.lng.nil?
-          user_coor = [ user.lat, user.lng ]
+          user_coor = [user.lat, user.lng]
 
           if Haversine.distance(query, user_coor).to_km < 20
             @users << user
@@ -98,7 +102,7 @@ class HomeController < ApplicationController
     end_date = params[:end_date]
     location_query = params[:autocomplete]
 
-    query = [ lat, lng ]
+    query = [lat, lng]
 
     users = Array.new
     # @users = User.all
@@ -124,7 +128,7 @@ class HomeController < ApplicationController
 
       if boolBook == true
         unless user.lat.nil? && user.lng.nil?
-          user_coor = [ user.lat, user.lng ]
+          user_coor = [user.lat, user.lng]
 
           if Haversine.distance(query, user_coor).to_km < 20
             users << user
