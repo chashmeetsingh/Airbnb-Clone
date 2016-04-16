@@ -6,13 +6,14 @@ class ProfileController < ApplicationController
   end
 
   def update_profile
-    puts params[:user][:phone_no]
-    if params[:user][:address].nil?
+    if params[:user][:address].empty?
       if current_user.address.empty?
         flash[:error] = 'Please Specify a valid address'
       else
         update_user_without_address
       end
+    elsif !params[:user][:address].empty?
+      update_user_with_address
     elsif !params[:user][:phone_no].nil?
       update_user_without_address
     else
