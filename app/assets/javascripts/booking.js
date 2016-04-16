@@ -17,8 +17,6 @@ $(document).ready(function() {
     var $name = $('#name');
     var $description = $('#description');
 
-    console.log('aaa');
-
     if ($name.val()) {
       if ($description.val()) {
         $.post('/dog/api', {

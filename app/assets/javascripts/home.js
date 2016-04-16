@@ -1,9 +1,15 @@
 var autocomplete;
 
+function parseDate(date) {
+  var parts = date.split('-');
+  return new Date(parts[0], parts[1], parts[2]);
+}
+
 function initialize() {
-  if ($('#autocomplete').length) {
+  var $autocomplete = $('#autocomplete');
+  if ($autocomplete.length) {
     autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('autocomplete')), {
+      $autocomplete[0], {
         types: ['geocode']
       });
 
@@ -25,33 +31,12 @@ function fillInAddress() {
   }
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
-
 function getCoordinates() {
   var coordinates = autocomplete.getPlace();
   $('#lng').val(coordinates.geometry.location.lng());
   $('#lat').val(coordinates.geometry.location.lat());
   $('#search_form').submit();
 }
-
-$(document).ready(function() {
-  $('#form_errors').hide();
-  $('#form_errors1').hide();
-
-  if ($('#start_date').length) {
-    $("#start_date").datepicker({
-      minDate: 0,
-      dateFormat: 'yy-mm-dd'
-    });
-  }
-
-  if ($('#end_date').length) {
-    $("#end_date").datepicker({
-      minDate: 0,
-      dateFormat: 'yy-mm-dd'
-    });
-  }
-});
 
 function validate() {
   $('#form_errors1').hide();
@@ -74,38 +59,28 @@ function validate() {
   }
 }
 
-function parseDate(date) {
-  var parts = date.split('-');
-  return new Date(parts[0], parts[1], parts[2]);
-}
+// Initialize Google Maps
+google.maps.event.addDomListener(window, 'load', initialize);
 
-jQuery(function($){
-    $("#user_phone_no").mask("(999) 999-9999");
-});
+$(document).ready(function() {
+  $('#form_errors').hide();
+  $('#form_errors1').hide();
 
-function favourite(userId) {
-    $.post(
-        '/api/favourite',
-        {
-            userID: userId
-        },
-        function(data) {
-            console.log(data);
-            if(data['response'] == 'favourite') {
-                $('#favourite').removeClass('btn-primary').addClass('btn-danger');
-                $("#favourite").text('Unfavourite');
-            }
-            else{
-                $('#favourite').removeClass('btn-danger').addClass('btn-primary');
-                $("#favourite").text('Favourite');
-            }
-        }
-    )
-}
+  var $startDate = $('#start_date');
+  var $endDate = $('#end_date');
+  var datepickerOptions = {
+    minDate: 0,
+    dateFormat: 'yy-mm-dd'
+  };
 
-$(function() {
-    if($('#start_date').length) {
-        $("#start_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-        $("#end_date").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-    }
+  if ($startDate.length) {
+    $startDate.datepicker(datepickerOptions);
+  }
+
+  if ($endDate.length) {
+    $endDate.datepicker(datepickerOptions);
+  }
+
+  // Phone Number
+  $('#user_phone_no').mask('(999) 999-9999');
 });
