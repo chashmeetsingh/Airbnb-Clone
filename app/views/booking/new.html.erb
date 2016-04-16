@@ -3,7 +3,7 @@
 <div class="well">
   <h3>Add Pet</h3>
 
-  <%= form_for :dog, html: { id: 'dogForm' } do  %>
+  <%= form_for :pet, html: { id: 'petForm' } do  %>
     <%= label_tag :name, "Name" %><br>
     <%= text_field_tag :name, "", autofocus:true, required: true %><br>
 
@@ -25,14 +25,14 @@
     <%= label_tag :description %><br>
     <%= text_area_tag :description, "", :size => "45x5", required: true %><br>
 
-    <%= submit_tag "Add Dog", class: "btn btn-primary" %>
+    <%= submit_tag "Add Pet", class: "btn btn-primary" %>
   <% end %>
 </div>
 
 <h3>Select your Pet</h3>
 
 <div class="list-group" id="pet-list">
-  <% @dogs.each do |pet| %>
+  <% @pets.each do |pet| %>
     <a href class="list-group-item" data-pet-id="<%= pet.id %>">
       <%= pet.name %>
     </a>
@@ -45,7 +45,7 @@
         <div class="form-group">
           <%= text_area_tag :description, '', placeholder: 'Describe', class: 'form-control', size: '60x10' %>
         </div>
-        <%= text_field_tag :dog_id, '', type: 'hidden' %>
+        <%= text_field_tag :pet_id, '', type: 'hidden' %>
         <%= text_field_tag :stripeToken, '', type: 'hidden' %><br>
         <%= button_tag 'Book', class: 'btn btn-success', type: 'button', id: 'bookButton' %>
     <% end %>
@@ -98,8 +98,8 @@
   });
 
   $('#bookButton').on('click', function(e) {
-    if ($('#dog_id').val().length == 0) {
-      alert('Select Dog');
+    if ($('#pet_id').val().length == 0) {
+      alert('Select pet');
     }
     else {
       $("#bookButton").prop("disabled", true);

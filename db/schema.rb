@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414173737) do
+ActiveRecord::Schema.define(version: 20160416120827) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "cust_id"
@@ -36,22 +36,6 @@ ActiveRecord::Schema.define(version: 20160414173737) do
     t.datetime "updated_at"
   end
 
-  create_table "dogs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "gender"
-    t.string   "breed"
-    t.string   "size"
-    t.text     "description"
-    t.string   "image_url"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "year"
-    t.integer  "month"
-  end
-
-  add_index "dogs", ["user_id"], name: "index_dogs_on_user_id"
-
   create_table "favourites", force: :cascade do |t|
     t.integer  "cust_id"
     t.integer  "provider_id"
@@ -70,6 +54,20 @@ ActiveRecord::Schema.define(version: 20160414173737) do
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+
+  create_table "pets", force: :cascade do |t|
+    t.string   "name"
+    t.string   "gender"
+    t.string   "pet_type"
+    t.string   "size"
+    t.string   "description"
+    t.string   "image_url"
+    t.integer  "user_id"
+    t.integer  "year"
+    t.integer  "month"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "rating_sitters", force: :cascade do |t|
     t.string   "comment"

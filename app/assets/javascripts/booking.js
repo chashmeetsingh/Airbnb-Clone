@@ -1,17 +1,17 @@
 $(document).ready(function() {
   var $petList = $('#pet-list');
-  var $dogId = $('#dog_id');
+  var $petId = $('#pet_id');
 
   $petList.click(function(e) {
     var activeClass = 'active';
     var $target = $(e.target);
     $('.list-group-item', $petList).removeClass(activeClass);
     $target.addClass(activeClass);
-    $dogId.val($target.data('pet-id'));
+    $petId.val($target.data('pet-id'));
     e.preventDefault();
   });
 
-  $('#dogForm').submit(function(e) {
+  $('#petForm').submit(function(e) {
     e.preventDefault();
 
     var $name = $('#name');
@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     if ($name.val()) {
       if ($description.val()) {
-        $.post('/dog/api', {
+        $.post('/pets/api', {
             name: $name.val(),
             year: $('#year').val(),
             month: $('#month').val(),
@@ -30,7 +30,7 @@ $(document).ready(function() {
           },
           function(data, status, xhr) {
             if (xhr.status == 200) {
-              var content = '<a href class="list-group-item" data-pet-id="' + data['dog_id'] + '">' + data['dog_name'] + '</a>';
+              var content = '<a href class="list-group-item" data-pet-id="' + data['pet_id'] + '">' + data['pet_name'] + '</a>';
               console.log(content);
               $petList.append(content);
               alert('added');

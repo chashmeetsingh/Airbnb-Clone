@@ -37,11 +37,11 @@ Rails.application.routes.draw do
   get '/complete/:booking_id' => 'booking#complete'
 
   # Pets
-  get 'dog/sample'
-  get 'dog/index'
-  post 'dog/add'
-  post 'dog/remove'
-  post 'dog/api'
+  get 'pets/sample'
+  get 'pets/index'
+  post 'pets/add'
+  post 'pets/remove'
+  post 'pets/api'
 
   post 'api/favourite'
 

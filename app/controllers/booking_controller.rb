@@ -15,8 +15,8 @@ class BookingController < ApplicationController
   end
 
   def new
-    @dogs = current_user.dogs
-    if @dogs
+    @pets = current_user.pets
+    if @pets
       @provider = User.find(params[:booking][:provider_id]).id
       @start_date = params[:booking][:start_date]
       @end_date = params[:booking][:end_date]
@@ -31,7 +31,7 @@ class BookingController < ApplicationController
       @@provider = @provider
 
     else
-      redirect_to dog_index_path, notice: 'Please add a dog'
+      redirect_to pet_index_path, notice: 'Please add a pet'
     end
   end
 

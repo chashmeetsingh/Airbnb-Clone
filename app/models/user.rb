@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :dogs
+  has_many :pets
   has_many :messages
   # has_many :bookings, foreign_key: 'cust_id'
   has_many :my_bookings,        class_name: 'Booking', foreign_key: 'cust_id'
