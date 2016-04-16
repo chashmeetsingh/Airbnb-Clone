@@ -1,21 +1,22 @@
-<h1 class="page-header">Marked Sitters</h1>
+<h1 class="page-header">Favourite Sitters</h1>
+
 <% @favourites.each do |favourite| %>
-    <div class="well">
-      <div class="row">
-        <div class="col-lg-8">
-          <% user = User.find(favourite.provider_id) %>
-          <a href="/user/<%= user.username %>"><%= user.first_name.empty? ? user.username : user.full_name %></a>
-        </div>
-        <div style="align: right;" class="col-lg-4">
-          <% if Favourite.find_by(cust_id: current_user.id, provider_id: user.id) %>
-              <% attr = 'danger' %>
-              <% val = 'Unfavourite' %>
-          <% else %>
-              <% attr = 'primary' %>
-              <% val = 'Favourite' %>
-          <% end %>
-          <button class="btn btn-<%=attr%>" id="favourite" onclick="favourite(<%= user.id %>)"><%=val%></button>
-        </div>
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-8">
+        <% user = User.find(favourite.provider_id) %>
+        <a href="/user/<%= user.username %>"><%= user.first_name.empty? ? user.username : user.full_name %></a>
+      </div>
+      <div style="align: right;" class="col-lg-4">
+        <% if Favourite.find_by(cust_id: current_user.id, provider_id: user.id) %>
+            <% attr = 'danger' %>
+            <% val = 'Unfavourite' %>
+        <% else %>
+            <% attr = 'primary' %>
+            <% val = 'Favourite' %>
+        <% end %>
+        <button class="btn btn-<%=attr%>" id="favourite" onclick="favourite(<%= user.id %>)"><%=val%></button>
       </div>
     </div>
+  </div>
 <% end %>
