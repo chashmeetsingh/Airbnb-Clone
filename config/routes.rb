@@ -10,53 +10,42 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
+  root to: 'home#index'
+
   get 'home/index'
-
-  get 'dog/index'
-
-  post 'dog/add'
-
-  post 'dog/remove'
+  get 'home/sitter'
+  post '/api/search' => 'home#search_api'
 
   resources :conversations do
     resources :messages
   end
 
-  get 'home/sitter'
-
-  get '/profile' => 'home#profile'
+  # Profile
+  get '/profile' => 'profile#profile'
+  post 'profile/update_profile'
+  get '/user/:username' => 'profile#public_profile', :constraints => { :username => /[^\/]+/ }
 
   post '/search' => 'home#search'
 
-  post 'home/update_profile'
-
-  get '/user/:username' => 'home#public_profile', :constraints => { :username => /[^\/]+/ }
-
-  post '/book' => 'booking#new'
-
-  post 'booking/create'
-
+  # Booking
   get 'booking/index'
-
-  get 'dog/sample'
-
-  root to: 'home#index'
-
-  post 'dog/api'
-
+  post '/book' => 'booking#new'
+  post 'booking/create'
   post 'booking/accept'
-
   get 'booking/sitter'
+  get '/booking/:booking_id' => 'booking#show'
+  get '/complete/:booking_id' => 'booking#complete'
+
+  # Pets
+  get 'dog/sample'
+  get 'dog/index'
+  post 'dog/add'
+  post 'dog/remove'
+  post 'dog/api'
 
   post 'api/favourite'
 
   get '/favourites' => 'api#all'
-
-  post '/api/search' => 'home#search_api'
-
-  get '/booking/:booking_id' => 'booking#show'
-
-  get '/complete/:booking_id' => 'booking#complete'
 
   post 'rating/sitter'
 

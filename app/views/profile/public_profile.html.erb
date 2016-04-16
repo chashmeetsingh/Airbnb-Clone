@@ -10,26 +10,41 @@
   <%= @user.first_name %> <%= @user.last_name %> (<%= @user.username %>)
 </h1>
 
+<dl>
+  <dt>Address:</dt>
+  <dd>
+    <%= @user.address %><br>
+    <%= @user.city %>, <%= @user.state %><br>
+    <%= @user.country %><br>
+  </dd>
+
+  <dt>Phone Number:</dt>
+  <dd><%= @user.phone_no %></dd>
+
+  <dt></dt>
+  <dd><%= @user.lat %> <%= @user.lng %></dd>
+</dl>
+
 <h2>Request Booking</h2>
 
 <%= form_for :booking, url: { action: 'new', controller: 'booking' }, html: { id: 'booking_form' } do |f| %>
-    <div class="form-group">
-      <%= f.text_field :start_date, placeholder: 'Start Date', size: '20', required: true, id: 'start_date', class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.text_field :start_date, placeholder: 'Start Date', size: '20', required: true, id: 'start_date', class: 'form-control' %>
+  </div>
 
-    <div class="form-group">
-      <%= f.text_field :end_date, placeholder: 'End Date', size: '20', required: true, id: 'end_date', class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.text_field :end_date, placeholder: 'End Date', size: '20', required: true, id: 'end_date', class: 'form-control' %>
+  </div>
 
-    <div class="form-group">
-      <%= f.text_field :provider_id, type: 'hidden', value: @user.id %>
-    </div>
+  <div class="form-group">
+    <%= f.text_field :provider_id, type: 'hidden', value: @user.id %>
+  </div>
 
-    <%= f.button 'Request Booking', class: 'btn btn-primary', type: 'button', onclick: 'validate();' %>
+  <%= f.button 'Request Booking', class: 'btn btn-primary request-booking', type: 'button' %>
 <% end %>
 
 <h3>Per day cost</h3>
-$ <%= @user.per_day_price %><br>
+<p>$ <%= @user.per_day_price %></p>
 
 <% if user_signed_in? %>
     <% if Favourite.find_by(cust_id: current_user.id, provider_id: @user.id) %>
