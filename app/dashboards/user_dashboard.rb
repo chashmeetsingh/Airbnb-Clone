@@ -32,7 +32,7 @@ class UserDashboard < Administrate::BaseDashboard
     address: Field::String,
     city: Field::String,
     state: Field::String,
-    phone_no: Field::Number,
+    phone_no: Field::String,
     profile_image: Field::String,
     lat: Field::Number.with_options(decimals: 2),
     lng: Field::Number.with_options(decimals: 2),

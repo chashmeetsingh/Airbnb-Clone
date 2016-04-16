@@ -23,6 +23,7 @@ class BookingDashboard < Administrate::BaseDashboard
     price: Field::Number,
     paid: Field::Boolean,
     accept: Field::Boolean,
+    complete: Field::Boolean,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -59,6 +60,7 @@ class BookingDashboard < Administrate::BaseDashboard
     :price,
     :paid,
     :accept,
+    :complete,
   ]
 
   # FORM_ATTRIBUTES
@@ -77,6 +79,7 @@ class BookingDashboard < Administrate::BaseDashboard
     :price,
     :paid,
     :accept,
+    :complete,
   ]
 
   # Overwrite this method to customize how bookings are displayed
