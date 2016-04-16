@@ -3,11 +3,6 @@
 
   var autocomplete;
 
-  function parseDate(date) {
-    var parts = date.split('-');
-    return new Date(parts[0], parts[1], parts[2]);
-  }
-
   function initialize() {
     var $autocomplete = $('#autocomplete');
     if ($autocomplete.length) {
