@@ -1,5 +1,6 @@
 # PetsHosts
 
+This app works like an Airbnb for pets.
 
 ## Pre-Requisites
 
